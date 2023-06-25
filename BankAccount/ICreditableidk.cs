@@ -2,7 +2,7 @@
 {
     internal interface ICreditableidk
     {
-        public void RefillMoney();
+        public void RefillMoney(decimal s);
 
         public void WriteOffMoney();
 

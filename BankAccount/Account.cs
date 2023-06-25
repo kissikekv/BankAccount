@@ -1,7 +1,8 @@
 ﻿namespace BankAccount
 {
-    internal class Account : IEquatable<Account>, IComparable, IComparable<Account>, ICreditableidk
-    {
+    internal class Account : IEquatable<Account>, IComparable, IComparable<Account>
+    {        
+
         private string? _accountNumber;
         private string? _nameOfOwner;
         private string? _surnameOfOwner;
@@ -184,27 +185,7 @@
             }
 
             throw new ArgumentException(nameof(acc));
-        }
-
-        public void RefillMoney()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void WriteOffMoney()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void CreateNewAccont()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void RemoveAccont()
-        {
-            throw new NotImplementedException();
-        }
+        }        
 
         public static bool operator <(Account left, Account right)
         {

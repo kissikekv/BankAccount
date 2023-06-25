@@ -2,7 +2,7 @@
 
 namespace BankAccount
 {
-    internal class Validator
+    public class Validator
     {
         public bool NullEqualValidator(object? value)
         {
@@ -16,8 +16,8 @@ namespace BankAccount
         public bool NameValidator(string? name)
         {
             NullEqualValidator(name);
-            string pattern = @"\d";
-            if (!Regex.IsMatch(pattern, name))
+            string pattern = @"\d+";
+            if (Regex.IsMatch(pattern, name))
             {
                 throw new ArgumentException(nameof(name));
             }
@@ -33,6 +33,22 @@ namespace BankAccount
                 throw new ArgumentException(nameof(accountNumber));
             }
             return true;
+        }
+
+        public static void ValidateFilePath(string filePath)
+        {
+            try
+            {
+                UriBuilder uriBuilder = new UriBuilder();
+                uriBuilder.Scheme = Uri.UriSchemeFile;
+                uriBuilder.Path = filePath;
+
+                bool isValid = Uri.TryCreate(uriBuilder.Uri.ToString(), UriKind.Absolute, out Uri resultUri);
+            }
+            catch (UriFormatException)
+            {
+                throw new FormatException(message: "Invalid path format");
+            }
         }
     }
 }
