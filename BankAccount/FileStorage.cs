@@ -1,10 +1,7 @@
 ﻿namespace BankAccount
 {
     internal class FileStorage
-    {
-        delegate void AccountHandler(string message);
-        event AccountHandler Notify;
-
+    {     
         private readonly string _path;
 
         public FileStorage(string path)
@@ -28,8 +25,7 @@
                     var tempNameOfOwner = sreader.ReadLine();
                     var tempSurnameOfOwner = sreader.ReadLine();
                     var tempBalance = sreader.ReadLine();
-                    var tempBonuses = sreader.ReadLine();
-                    var tempAccountGradation = sreader.ReadLine();
+                    var tempBonuses = sreader.ReadLine();                    
                     if (tempAccountNumber == number)
                     {
                         return new Account(
@@ -37,8 +33,8 @@
                             tempNameOfOwner,
                             tempSurnameOfOwner,
                             Convert.ToDecimal(tempBalance),
-                            Convert.ToInt32(tempBonuses),
-                            tempAccountGradation);
+                            Convert.ToInt32(tempBonuses)
+                            );
                     }
                 }
                 return default;
@@ -48,8 +44,7 @@
         public void RefillMoney(decimal amountOfMoney, string number)
         {
             var acc = FindAccountByNumber(number);
-            acc.Balance = acc.Balance + amountOfMoney;
-            Notify?.Invoke($"На счет {number} поступило: {amountOfMoney} рублей");
+            acc.Balance = acc.Balance + amountOfMoney;            
         }
 
         public void WriteOffMoney(decimal amountOfMoney, string number)
@@ -58,11 +53,11 @@
             if (acc.Balance >= amountOfMoney)
             {
                 acc.Balance -= amountOfMoney;
-                Notify?.Invoke($"Со счёта снято {amountOfMoney}, текущий баланс {acc.Balance}");
+                
             }
             else
             {
-                Notify?.Invoke($"Недостаточно денег на счете. Текущий баланс: {acc.Balance}");
+                return;
             }
         }
 
@@ -81,7 +76,7 @@
 
         public void RemoveAccount(string accountNumber)
         {
-
+            throw new NotImplementedException();
         }
     }
 }

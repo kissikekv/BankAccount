@@ -1,14 +1,14 @@
 ﻿namespace BankAccount
 {
-    internal class Account : IEquatable<Account>, IComparable, IComparable<Account>
-    {        
+    public class Account : IEquatable<Account>, IComparable, IComparable<Account>
+    {
+        private readonly decimal coefficient = 1.4m;
 
         private string? _accountNumber;
         private string? _nameOfOwner;
         private string? _surnameOfOwner;
         private decimal? _balance;
-        private int? _bonuses;
-        private string? _accountGradation;
+        private int? _bonuses;        
 
         Validator validator = new Validator();
 
@@ -16,17 +16,16 @@
             string accountNumber,
             string nameOfOwner,
             string surnameOfOwner,
-            decimal balance, 
-            int bonuses, 
-            string accountGradation)
+            decimal balance,
+            int bonuses)
         {
             AccountNumber = accountNumber;
             NameOfOwner = nameOfOwner;
             SurnameOfOwner = surnameOfOwner;
             Balance = balance;
-            Bonuses = bonuses;
-            AccountGradation = accountGradation;
+            Bonuses = bonuses;            
         }
+
         public string? AccountNumber
         {
             get
@@ -96,27 +95,15 @@
                     _bonuses = value;
                 }
             }
-        }
-        public string? AccountGradation
-        {
-            get
-            {
-                return _accountGradation;
-            }
-            set
-            {
-                _accountGradation = value;
-            }
-        }
+        }       
 
         public override string ToString()
         {
             return "BankAccount: " + AccountNumber.ToString()
-                + "NameOfOwner: " + NameOfOwner.ToString()
-                + "SurnameOfOwner: " + SurnameOfOwner.ToString()
-                + "Balance: " + Balance.ToString()
-                + "Bonuses: " + Bonuses.ToString()
-                + "AccountGradation: " + AccountGradation.ToString();
+                + " NameOfOwner: " + NameOfOwner.ToString()
+                + " SurnameOfOwner: " + SurnameOfOwner.ToString()
+                + " Balance: " + Balance.ToString()
+                + " Bonuses: " + Bonuses.ToString();
         }
 
         public bool Equals(Account? other)
@@ -128,8 +115,7 @@
             NameOfOwner == other.NameOfOwner &&
             SurnameOfOwner == other.SurnameOfOwner &&
             Balance == other.Balance &&
-            Bonuses == other.Bonuses &&
-            AccountGradation == other.AccountGradation;
+            Bonuses == other.Bonuses;
         }
 
         public override bool Equals(object? obj)
@@ -148,7 +134,6 @@
             hash.Add(SurnameOfOwner);
             hash.Add(Balance);
             hash.Add(Bonuses);
-            hash.Add(AccountGradation);
             return hash.ToHashCode();
         }
 
@@ -185,7 +170,7 @@
             }
 
             throw new ArgumentException(nameof(acc));
-        }        
+        }
 
         public static bool operator <(Account left, Account right)
         {
@@ -215,6 +200,11 @@
         public static bool operator !=(Account left, Account right)
         {
             return !(left == right);
+        }
+
+        public virtual int?  BonusAmount(decimal cost)
+        {
+            return (int?)(cost * coefficient);
         }
     }
 }
