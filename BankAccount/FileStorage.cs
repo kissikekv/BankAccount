@@ -52,8 +52,7 @@
             var acc = FindAccountByNumber(number);
             if (acc.Balance >= amountOfMoney)
             {
-                acc.Balance -= amountOfMoney;
-                
+                acc.Balance -= amountOfMoney;                
             }
             else
             {
