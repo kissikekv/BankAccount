@@ -8,20 +8,23 @@
         private string? _nameOfOwner;
         private string? _surnameOfOwner;
         private decimal? _balance;
-        private int? _bonuses; 
+        private int? _bonuses;
+        private string? _accountGradation;
 
         public Account(
             string accountNumber,
             string nameOfOwner,
             string surnameOfOwner,
             decimal balance,
-            int bonuses)
+            int bonuses,
+            string accountGradation)
         {
             AccountNumber = accountNumber;
             NameOfOwner = nameOfOwner;
             SurnameOfOwner = surnameOfOwner;
             Balance = balance;
-            Bonuses = bonuses;            
+            Bonuses = bonuses;
+            AccountGradation = accountGradation;
         }
 
         public string? AccountNumber
@@ -93,15 +96,30 @@
                     _bonuses = value;
                 }
             }
-        }       
+        }
+        public string? AccountGradation
+        {
+            get
+            {
+                return _accountGradation;
+            }
+            set
+            {
+                if (Validation.Validator.NullEqualValidator(value))
+                {
+                    _accountGradation = value;
+                }
+            }
+        }
 
         public override string ToString()
         {
             return "BankAccount: " + AccountNumber.ToString()
-                + " NameOfOwner: " + NameOfOwner.ToString()
-                + " SurnameOfOwner: " + SurnameOfOwner.ToString()
+                + " Name of Owner: " + NameOfOwner.ToString()
+                + " Surname of Owner: " + SurnameOfOwner.ToString()
                 + " Balance: " + Balance.ToString()
-                + " Bonuses: " + Bonuses.ToString();
+                + " Bonuses: " + Bonuses.ToString()
+                + " Account Gradation: " + AccountGradation.ToString();
         }
 
         public bool Equals(Account? other)
@@ -113,7 +131,9 @@
             NameOfOwner == other.NameOfOwner &&
             SurnameOfOwner == other.SurnameOfOwner &&
             Balance == other.Balance &&
-            Bonuses == other.Bonuses;
+            Bonuses == other.Bonuses &&
+            AccountGradation == other.AccountGradation
+            ;
         }
 
         public override bool Equals(object? obj)
@@ -132,6 +152,7 @@
             hash.Add(SurnameOfOwner);
             hash.Add(Balance);
             hash.Add(Bonuses);
+            hash.Add(AccountGradation);
             return hash.ToHashCode();
         }
 
@@ -200,7 +221,7 @@
             return !(left == right);
         }
 
-        public virtual int?  BonusAmount(decimal cost)
+        public virtual int? BonusAmount(decimal cost)
         {
             return (int?)(cost * coefficient);
         }

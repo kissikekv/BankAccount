@@ -1,17 +1,19 @@
 ﻿namespace BankAccount
 {
-    public class StatusGold : Account
+    public class GoldAccount : Account
     {
         private const decimal coefficient = 1.7m;
-        public StatusGold(string accountNumber,
+        public GoldAccount(string accountNumber,
             string nameOfOwner,
             string surnameOfOwner,
             decimal balance,
-            int bonuses) : base(accountNumber,
+            int bonuses,
+            string accountGradation) : base(accountNumber,
                 nameOfOwner,
                 surnameOfOwner,
                 balance,
-                bonuses)
+                bonuses,
+                accountGradation)
         {}
 
         public override int? BonusAmount(decimal cost)

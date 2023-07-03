@@ -11,18 +11,16 @@ namespace Storage
             _path = path;
         }
 
-        public void AddAccount(string accountNumber,
-            string nameOfOwner,
-            string surnameOfOwner,
-            decimal balance, int bonuses)
+        public void AddAccount(AccountDto accountDto)
         {
             using (StreamWriter stwriter = new StreamWriter(_path, true))
             {
-                stwriter.WriteLine(accountNumber);
-                stwriter.WriteLine(nameOfOwner);
-                stwriter.WriteLine(surnameOfOwner);
-                stwriter.WriteLine(balance);
-                stwriter.WriteLine(bonuses);
+                stwriter.WriteLine(accountDto.AccountNumber);
+                stwriter.WriteLine(accountDto.NameOfOwner);
+                stwriter.WriteLine(accountDto.SurnameOfOwner);
+                stwriter.WriteLine(accountDto.Balance);
+                stwriter.WriteLine(accountDto.Bonuses);
+                stwriter.WriteLine(accountDto.AccountGradation);
             }
         }
 
@@ -42,6 +40,7 @@ namespace Storage
                     var tempSurnameOfOwner = sreader.ReadLine();
                     var tempBalance = sreader.ReadLine();
                     var tempBonuses = sreader.ReadLine();
+                    var tempAccountGradation = sreader.ReadLine();
                     if (tempAccountNumber == number)
                     {
                         return new AccountDto()
@@ -50,14 +49,15 @@ namespace Storage
                             NameOfOwner = tempNameOfOwner,
                             SurnameOfOwner = tempSurnameOfOwner,
                             Balance = Convert.ToDecimal(tempBalance),
-                            Bonuses = Convert.ToInt32(tempBonuses)
+                            Bonuses = Convert.ToInt32(tempBonuses),
+                            AccountGradation = tempAccountGradation
                         };
                     }
                 }
                 return default;
             }
         }
-        public void RewriteFileWith(List<AccountDto> accList)
+        private void RewriteFileWith(List<AccountDto> accList)
         {
             File.Delete(_path);
             foreach (AccountDto item in accList)
@@ -67,7 +67,9 @@ namespace Storage
                     item.NameOfOwner,
                     item.SurnameOfOwner,
                     item.Balance,
-                    item.Bonuses);
+                    item.Bonuses,
+                    item.AccountGradation
+                    );
             }
         }
         public void DeleteAccount(string accountNumber)
@@ -81,7 +83,7 @@ namespace Storage
             accList.Remove(bookForDelete);
             RewriteFileWith(accList);
         }
-        public List<AccountDto> ReadAccounts()
+        private List<AccountDto> ReadAccounts()
         {
             List<AccountDto> accList = new List<AccountDto>();
 
@@ -95,7 +97,8 @@ namespace Storage
                         NameOfOwner = sreader.ReadLine(),
                         SurnameOfOwner = sreader.ReadLine(),
                         Balance = Convert.ToDecimal(sreader.ReadLine()),
-                        Bonuses = Convert.ToInt32(sreader.ReadLine())
+                        Bonuses = Convert.ToInt32(sreader.ReadLine()),
+                        AccountGradation = sreader.ReadLine()
                     };
                     accList.Add(acc);
                 }

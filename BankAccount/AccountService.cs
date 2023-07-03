@@ -15,14 +15,19 @@ namespace BankAccount
             string nameOfOwner,
             string surnameOfOwner,
             decimal balance,
-            int bonuses)
+            int bonuses,
+            string accountGradation)
         {
-
-            _fileStorage.AddAccount(accountNumber,
-            nameOfOwner,
-            surnameOfOwner,
-            balance,
-            bonuses);
+            AccountDto accountDto = new AccountDto()
+            {
+                AccountNumber = accountNumber,
+                NameOfOwner = nameOfOwner,
+                SurnameOfOwner = surnameOfOwner,
+                Balance = balance,
+                Bonuses = bonuses,
+                AccountGradation = accountGradation
+            };
+            _fileStorage.AddAccount(accountDto);
             Console.WriteLine($"Account with number {accountNumber} has been created");
         }
 

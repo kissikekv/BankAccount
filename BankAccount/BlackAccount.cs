@@ -7,11 +7,13 @@
             string nameOfOwner,
             string surnameOfOwner,
             decimal balance,
-            int bonuses) : base(accountNumber,
+            int bonuses,
+            string accountGradation) : base(accountNumber,
                 nameOfOwner,
                 surnameOfOwner,
                 balance,
-                bonuses)
+                bonuses,
+                accountGradation)
         {}
 
         public override int? BonusAmount(decimal cost)

@@ -15,7 +15,8 @@ namespace BankAccount
             string nameOfOwner,
             string surnameOfOwner,
             decimal balance,
-            int bonuses
+            int bonuses,
+            string accountGradation
             );
 
         public void RemoveAccount(string number);
