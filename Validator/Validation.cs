@@ -1,10 +1,10 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace BankAccount
+namespace Validation
 {
-    public class Validator
+    public static class Validator
     {
-        public bool NullEqualValidator(object? value)
+        public static bool NullEqualValidator(object? value)
         {
             if (value.Equals(null))
             {
@@ -13,7 +13,7 @@ namespace BankAccount
             return true;
         }
 
-        public bool NameValidator(string? name)
+        public static bool NameValidator(string? name)
         {
             NullEqualValidator(name);
             string pattern = @"\d+";
@@ -24,10 +24,10 @@ namespace BankAccount
             return true;
         }
 
-        public bool AccountNumberValidator(string? accountNumber)
+        public static bool AccountNumberValidator(string? accountNumber)
         {
             NullEqualValidator(accountNumber);
-            string pattern = @"\d{4}\s{1}\d{4}\s{1}\d{4}\s{1}\d{4}";
+            string pattern = @"^\d{4}\s{1}\d{4}\s{1}\d{4}\s{1}\d{4}$";
             if (!Regex.IsMatch(pattern, accountNumber))
             {
                 throw new ArgumentException(nameof(accountNumber));

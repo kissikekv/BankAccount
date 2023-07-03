@@ -1,16 +1,14 @@
 ﻿namespace BankAccount
 {
-    public class Account : IEquatable<Account>, IComparable, IComparable<Account>
+    public abstract class Account : IEquatable<Account>, IComparable, IComparable<Account>
     {
-        private readonly decimal coefficient = 1.4m;
+        private const decimal coefficient = 1.4m;
 
         private string? _accountNumber;
         private string? _nameOfOwner;
         private string? _surnameOfOwner;
         private decimal? _balance;
-        private int? _bonuses;        
-
-        Validator validator = new Validator();
+        private int? _bonuses; 
 
         public Account(
             string accountNumber,
@@ -34,7 +32,7 @@
             }
             set
             {
-                if (validator.NullEqualValidator(value))
+                if ((Validation.Validator.NullEqualValidator(value)))
                 {
                     _accountNumber = value;
                 }
@@ -48,7 +46,7 @@
             }
             set
             {
-                if (validator.NullEqualValidator(value) && validator.NameValidator(value))
+                if (Validation.Validator.NullEqualValidator(value) && Validation.Validator.NameValidator(value))
                 {
                     _nameOfOwner = value;
                 }
@@ -62,7 +60,7 @@
             }
             set
             {
-                if (validator.NullEqualValidator(value) && validator.NameValidator(value))
+                if ((Validation.Validator.NullEqualValidator(value) && Validation.Validator.NameValidator(value)))
                 {
                     _surnameOfOwner = value;
                 }
@@ -76,7 +74,7 @@
             }
             set
             {
-                if (validator.NullEqualValidator(value))
+                if (Validation.Validator.NullEqualValidator(value))
                 {
                     _balance = value;
                 }
@@ -90,7 +88,7 @@
             }
             set
             {
-                if (validator.NullEqualValidator(value))
+                if (Validation.Validator.NullEqualValidator(value))
                 {
                     _bonuses = value;
                 }
